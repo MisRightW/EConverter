@@ -1,10 +1,5 @@
 package com.fengling.ecserver.util;
 
-import cn.hutool.core.util.IdUtil;
-import com.google.common.base.Joiner;
-import com.google.common.base.Splitter;
-import org.bytedeco.javacpp.Loader;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -12,9 +7,6 @@ import java.awt.image.RenderedImage;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
-import java.text.MessageFormat;
-import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 
 public class ImageUtil {
@@ -512,60 +504,60 @@ public class ImageUtil {
     }
 
 
-    /**
-     * 图片裁剪
-     *
-     * @param imagePath 图片地址
-     * @param outputDir 临时目录
-     * @param startX    裁剪起始x坐标
-     * @param startY    裁剪起始y坐标
-     * @param weight    裁剪宽度
-     * @param height    裁剪高度
-     * @throws Exception 异常
-     */
-    public static String cutOutImage(
-            String imagePath,
-            String outputDir,
-            Integer startX,
-            Integer startY,
-            Integer weight,
-            Integer height)
-            throws Exception {
-        List<String> paths = Splitter.on(".").splitToList(imagePath);
-        String ext = paths.get(paths.size() - 1);
-        if (!Arrays.asList("png", "jpg").contains(ext)) {
-            throw new Exception("format error");
-        }
-        File file = new File(outputDir);
-        if (!file.exists()) {
-            file.mkdir();
-        }
-        String resultPath =
-                Joiner.on(File.separator).join(Arrays.asList(outputDir, IdUtil.simpleUUID() + "." + ext));
-        String ffmpeg = Loader.load(org.bytedeco.ffmpeg.ffmpeg.class);
-        ProcessBuilder builder =
-                new ProcessBuilder(
-                        ffmpeg,
-                        "-i",
-                        imagePath,
-                        "-vf",
-                        MessageFormat.format(
-                                "crop={0}:{1}:{2}:{3}",
-                                String.valueOf(weight),
-                                String.valueOf(height),
-                                String.valueOf(startX),
-                                String.valueOf(startY)),
-                        "-y",
-                        resultPath);
-        builder.inheritIO().start().waitFor();
-        return resultPath;
-    }
-
-    public static void main(String[] args) throws Exception {
-        for (int i = 0; i < 8373 / 842 + 1; i++) {
-            cutOutImage(
-                    "D:\\test\\split\\1.jpg", "D:\\test\\split\\" + (i + 1) + "\\", 595 * i, 842 * i, 595, 842);
-        }
-    }
+//    /**
+//     * 图片裁剪
+//     *
+//     * @param imagePath 图片地址
+//     * @param outputDir 临时目录
+//     * @param startX    裁剪起始x坐标
+//     * @param startY    裁剪起始y坐标
+//     * @param weight    裁剪宽度
+//     * @param height    裁剪高度
+//     * @throws Exception 异常
+//     */
+//    public static String cutOutImage(
+//            String imagePath,
+//            String outputDir,
+//            Integer startX,
+//            Integer startY,
+//            Integer weight,
+//            Integer height)
+//            throws Exception {
+//        List<String> paths = Splitter.on(".").splitToList(imagePath);
+//        String ext = paths.get(paths.size() - 1);
+//        if (!Arrays.asList("png", "jpg").contains(ext)) {
+//            throw new Exception("format error");
+//        }
+//        File file = new File(outputDir);
+//        if (!file.exists()) {
+//            file.mkdir();
+//        }
+//        String resultPath =
+//                Joiner.on(File.separator).join(Arrays.asList(outputDir, IdUtil.simpleUUID() + "." + ext));
+//        String ffmpeg = Loader.load(org.bytedeco.ffmpeg.ffmpeg.class);
+//        ProcessBuilder builder =
+//                new ProcessBuilder(
+//                        ffmpeg,
+//                        "-i",
+//                        imagePath,
+//                        "-vf",
+//                        MessageFormat.format(
+//                                "crop={0}:{1}:{2}:{3}",
+//                                String.valueOf(weight),
+//                                String.valueOf(height),
+//                                String.valueOf(startX),
+//                                String.valueOf(startY)),
+//                        "-y",
+//                        resultPath);
+//        builder.inheritIO().start().waitFor();
+//        return resultPath;
+//    }
+//
+//    public static void main(String[] args) throws Exception {
+//        for (int i = 0; i < 8373 / 842 + 1; i++) {
+//            cutOutImage(
+//                    "D:\\test\\split\\1.jpg", "D:\\test\\split\\" + (i + 1) + "\\", 595 * i, 842 * i, 595, 842);
+//        }
+//    }
 
 }
