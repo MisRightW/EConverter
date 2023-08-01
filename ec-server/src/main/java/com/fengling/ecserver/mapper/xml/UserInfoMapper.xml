@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.temoco.builder.db.mapper.UserInfoMapper">
+
+        <!-- 通用查询映射结果 -->
+        <resultMap id="BaseResultMap" type="com.temoco.builder.db.mapper.entity.UserInfo">
+                <result column="id" property="id" />
+                <result column="gmt_create" property="gmtCreate" />
+                <result column="gmt_modified" property="gmtModified" />
+                <result column="creator" property="creator" />
+                <result column="modifier" property="modifier" />
+                <result column="deleted" property="deleted" />
+                <result column="user_name" property="userName" />
+                <result column="user_pass" property="userPass" />
+                <result column="phone" property="phone" />
+                <result column="role_id" property="roleId" />
+                <result column="nickname" property="nickname" />
+                <result column="avatar" property="avatar" />
+                <result column="appid" property="appid" />
+                <result column="openid" property="openid" />
+                <result column="unionid" property="unionid" />
+                <result column="session_key" property="sessionKey" />
+                <result column="access_token" property="accessToken" />
+                <result column="user_id" property="userId" />
+        </resultMap>
+
+        <!-- 通用查询结果列 -->
+        <sql id="Base_Column_List">
+                    id,
+                    gmt_create,
+                    gmt_modified,
+                    creator,
+                    modifier,
+                    deleted,
+                user_name, user_pass, phone, role_id, nickname, avatar, appid, openid, unionid, session_key, access_token, user_id
+        </sql>
+
+</mapper>

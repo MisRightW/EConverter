@@ -7,6 +7,45 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/ecserver?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
     username: admin
     password: Root@2021
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+  servlet:
+    multipart:
+      # 开启 multipart 上传功能
+      enabled: true
+      # 文件写入磁盘的阈值
+      file-size-threshold: 2KB
+      # 最大文件大小
+      max-file-size: 200MB
+      # 最大请求大小
+      max-request-size: 215MB
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: mapper/*.xml
+  global-config:
+    # 逻辑删除配置
+    db-config:
+      # 删除前
+      logic-not-delete-value: 1
+      # 删除后
+      logic-delete-value: 0
+
+#Netty的一些配置
+netty:
+  boss: 4
+  worker: 2
+  timeout: 6000
+  port: 9000
+  #多端口绑定
+  portSalve: 9001
+  host: 127.0.0.1
 
 storage:
   home: D:\test\storage
